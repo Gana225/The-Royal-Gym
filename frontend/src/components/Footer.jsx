@@ -3,7 +3,7 @@ import { Facebook, Instagram, Twitter, MapPin, Phone, Mail } from 'lucide-react'
 
 const Footer = () => {
   const address = "Garividi, Vizianagaram, Andhra Pradesh 535101";
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+  const mapsUrl = "https://www.google.com/maps?q=18.293064,83.548727";
 
   return (
     <footer id="contact" className="bg-black border-t border-white/10 pt-16 pb-8">
