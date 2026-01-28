@@ -5,10 +5,14 @@ import { Link } from 'react-scroll';
 
 const Hero = () => {
   return (
-    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section
+  id="home"
+  className="relative min-h-screen w-full flex items-center justify-center overflow-hidden"
+>
+
       {/* Background Image with Parallax effect via fixed attachment in CSS config */}
-      <div className="absolute inset-0 bg-hero-pattern bg-cover bg-center bg-fixed z-0"></div>
-      
+      <div className="absolute inset-0 bg-hero-pattern bg-cover bg-center md:bg-fixed z-0"></div>
+
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-royal-900 z-10"></div>
 
@@ -44,7 +48,7 @@ const Hero = () => {
 
       {/* Scroll Indicator */}
       <motion.div 
-        className="absolute bottom-10 z-20"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20"
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
       >
