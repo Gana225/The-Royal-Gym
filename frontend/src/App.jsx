@@ -1,23 +1,16 @@
-import React from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Features from './components/Features';
-import DailyStatus from './components/DailyStatus';
-import Pricing from './components/Pricing';
-import Gallery from './components/Gallery';
-import Footer from './components/Footer';
+//App.jsx
+import { Routes, Route } from "react-router-dom";
+import UserView from "./components/UserView";
+import AdminRoutes from "./admin/AdminRoutes";
 
 function App() {
   return (
-    <div className="bg-royal-900 text-white min-h-screen font-body selection:bg-royal-gold selection:text-black">
-      <Navbar />
-      <Hero />
-      <DailyStatus />
-      <Features />
-      <Pricing />
-      <Gallery />
-      <Footer />
-    </div>
+    <>
+    <Routes>
+      <Route path="/*" element={<UserView/>}/>
+      <Route path="/admin/*" element={<AdminRoutes/>}/>
+    </Routes>
+    </>
   );
 }
 

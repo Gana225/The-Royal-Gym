@@ -5,6 +5,12 @@ const Footer = () => {
   const address = "Garividi, Vizianagaram, Andhra Pradesh 535101";
   const mapsUrl = "https://www.google.com/maps?q=18.293064,83.548727";
 
+  const socail_media = [
+                        [Instagram, "https://www.instagram.com/royal_gym_swetha/"],
+                        [Facebook, "https://www.facebook.com/royal_gym_swetha/"],
+                        [Twitter, "https://twitter.com/royal_gym_swetha"]
+                       ]
+
   return (
     <footer id="contact" className="bg-black border-t border-white/10 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
@@ -18,15 +24,19 @@ const Footer = () => {
             Elevate your potential in an environment designed for champions. Luxury meets performance.
           </p>
           <div className="flex gap-4">
-            {[Instagram, Facebook, Twitter].map((Icon, i) => (
-              <div
+            {socail_media.map(([Icon, link], i) => (
+              <a
                 key={i}
-                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-royal-gold hover:text-black transition-all cursor-pointer"
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white hover:text-black transition-all"
               >
                 <Icon size={20} />
-              </div>
+              </a>
             ))}
           </div>
+
         </div>
 
         {/* Contact Info */}
