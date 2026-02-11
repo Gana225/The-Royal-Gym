@@ -5,7 +5,8 @@ import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
 import { loadAccessToken } from "../api/auth";
 import { setAuthToken } from "../api/axios";
-import Navbar from "../components/Navbar";
+import AdminGalleryManagement from "../admin/AdminGalleryManager";
+import EditSiteInfo from "./EditSiteInfo"
 
 const RequireAuth = ({ children }) => {
   const token = loadAccessToken();
@@ -13,7 +14,7 @@ const RequireAuth = ({ children }) => {
     setAuthToken(token);
     return children;
   }
-  return <Navigate to="login" replace />;
+  return <Navigate to="/admin/login" replace />;
 };
 
 export default function AdminRoutes() {
@@ -21,7 +22,9 @@ export default function AdminRoutes() {
     <>
     <Routes>
       <Route path="/login" element={<AdminLogin />} />
-      <Route path="/dashboard" element={<RequireAuth><AdminDashboard /></RequireAuth>} />
+      <Route path="/dashboard" element={<RequireAuth><AdminDashboard/></RequireAuth>} />
+      <Route path="/edit" element={<RequireAuth><EditSiteInfo/></RequireAuth>}/>
+      <Route path="/gallery-management" element={<RequireAuth><AdminGalleryManagement/></RequireAuth>}/>
     </Routes>
     </>
   );

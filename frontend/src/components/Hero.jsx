@@ -2,16 +2,26 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { Link } from 'react-scroll';
+import { useSiteData } from "../context/SiteDataContext";
 
 const Hero = () => {
+  const { siteData } = useSiteData();
+
   return (
     <section
-  id="home"
-  className="relative min-h-screen w-full flex items-center justify-center overflow-hidden"
->
-
-      {/* Background Image with Parallax effect via fixed attachment in CSS config */}
-      <div className="absolute inset-0 bg-hero-pattern bg-cover bg-center md:bg-fixed z-0"></div>
+      id="home"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden"
+    >
+      {/* FIX: 
+         1. Removed the <img> tag.
+         2. Added style={{ backgroundImage... }} to apply the dynamic URL.
+         3. Kept bg-cover, bg-center, bg-no-repeat to handle sizing.
+      */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat md:bg-fixed z-0"
+        style={{ backgroundImage: `url(${siteData.main_bg_image})` }}
+      />
+      {/* {console.log(siteData.main_bg_image)} */}
 
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-royal-900 z-10"></div>

@@ -1,25 +1,40 @@
 import jwtDecode from "jwt-decode";
+import api from "./axios";
 
 export function saveTokens(tokens) {
   localStorage.setItem("access_token", tokens.access);
-  localStorage.setItem("refresh_token", tokens.refresh);
 }
 
-export function loadAccessToken() {
-  return localStorage.getItem("access_token");
-}
+export function loadAccessToken() { return localStorage.getItem("access_token"); }
+export function loadRefreshToken() { return null }
 
 export function clearTokens() {
   localStorage.removeItem("access_token");
-  localStorage.removeItem("refresh_token");
 }
 
-export function getUserFromToken() {
-  const token = loadAccessToken();
-  if (!token) return null;
+// --- NEW LOGOUT FUNCTION ---
+export async function logout() {
+  const refresh = loadRefreshToken();
   try {
-    return jwtDecode(token);
+    if (refresh) {
+      await api.post("/logout/", { refresh });
+    }
   } catch (e) {
-    return null;
+    console.error("Logout error (server-side):", e);
+  } finally {
+    clearTokens();
+    window.location.href = "/The-Royal-Gym/admin/login"; // Force redirect
+  }
+}
+
+// --- HELPER FOR AUTO REFRESH ---
+export function getTimeUntilExpiry(token) {
+  try {
+    const decoded = jwtDecode(token);
+    if (!decoded.exp) return 0;
+    const expiryTime = decoded.exp * 1000;
+    return expiryTime - Date.now();
+  } catch {
+    return 0;
   }
 }

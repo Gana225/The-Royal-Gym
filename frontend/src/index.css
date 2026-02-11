@@ -13,6 +13,11 @@
   body {
     @apply bg-royal-900 text-white font-body overflow-x-hidden;
   }
+
+  ::selection {
+    @apply bg-yellow-300 text-slate-900;
+  }
+
 }
 
 /* Custom Scrollbar */

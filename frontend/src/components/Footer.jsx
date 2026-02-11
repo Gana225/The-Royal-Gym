@@ -1,14 +1,16 @@
 import React from 'react';
-import { Facebook, Instagram, Twitter, MapPin, Phone, Mail } from 'lucide-react';
-
+import { Facebook, Instagram, Twitter, Youtube, MapPin, Phone, Mail } from 'lucide-react';
+import { useSiteData } from "../context/SiteDataContext"
 const Footer = () => {
-  const address = "Garividi, Vizianagaram, Andhra Pradesh 535101";
+  const {siteData} = useSiteData();
+  const address = siteData.gym_address;
   const mapsUrl = "https://www.google.com/maps?q=18.293064,83.548727";
 
   const socail_media = [
-                        [Instagram, "https://www.instagram.com/royal_gym_swetha/"],
-                        [Facebook, "https://www.facebook.com/royal_gym_swetha/"],
-                        [Twitter, "https://twitter.com/royal_gym_swetha"]
+                        [Instagram, siteData.instagram],
+                        [Facebook, siteData.facebook],
+                        [Twitter, siteData.twitter],
+                        [Youtube, siteData.youtube]
                        ]
 
   return (
@@ -21,9 +23,10 @@ const Footer = () => {
             ROYAL<span className="text-royal-gold">FITNESS</span>
           </h2>
           <p className="text-gray-400 mb-6">
-            Elevate your potential in an environment designed for champions. Luxury meets performance.
+            {siteData.footer_description}
           </p>
           <div className="flex gap-4">
+            {/* eslint-disable-next-line no-unused-vars, no-unused-vars, no-unused-vars */}
             {socail_media.map(([Icon, link], i) => (
               <a
                 key={i}
@@ -73,16 +76,27 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Phone */}
+            {/* Phone 1 */}
             <div className="flex items-center gap-3">
               <Phone className="text-royal-gold flex-shrink-0" />
               <a
                 href="tel:+919876543210"
                 className="hover:text-royal-gold transition"
               >
-                +91 98765 43210
+                +91 {siteData.phone1}
               </a>
             </div>
+
+            {/* Phone 2 */}
+            {siteData.phone2 && (<div className="flex items-center gap-3">
+              <Phone className="text-royal-gold flex-shrink-0" />
+              <a
+                href="tel:+919876543210"
+                className="hover:text-royal-gold transition"
+              >
+                +91 {siteData.phone2}
+              </a>
+            </div>)}
 
             {/* Email */}
             <div className="flex items-center gap-3">
@@ -91,7 +105,7 @@ const Footer = () => {
                 href="mailto:example@royalfitness.com"
                 className="hover:text-royal-gold transition"
               >
-                example@royalfitness.com
+                {siteData.email}
               </a>
             </div>
           </div>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Trash2, Bell, Send } from 'lucide-react';
@@ -11,6 +12,7 @@ const DailyStatus = () => {
 
   // Load statuses and set up auto-refresh
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setStatuses(getActiveStatuses());
     
     // Check every minute for expired statuses
@@ -53,7 +55,7 @@ const DailyStatus = () => {
                 placeholder="Post a daily update (Auto-deletes in 24h)..."
                 className="flex-1 bg-black/30 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-royal-gold text-white"
               />
-              <button type="submit" className="bg-royal-gold text-black p-3 rounded-lg hover:bg-yellow-400 transition-colors">
+              <button type="submit" className="bg-royal-gold hover:text-black text-white p-3 rounded-lg hover:bg-yellow-400 transition-colors">
                 <Send size={20} />
               </button>
             </form>

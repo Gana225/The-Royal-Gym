@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Dumbbell } from "lucide-react";
 import { Link } from "react-scroll";
+import {loadAccessToken} from "../api/auth";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const navLinks = [
@@ -20,6 +21,7 @@ const Navbar = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const token = loadAccessToken();
 
   // ✅ Navbar Scroll Background Effect
   useEffect(() => {
@@ -87,10 +89,10 @@ const Navbar = () => {
 
               {/* ✅ Login Button */}
               <div
-                onClick={() => navigate("/admin/login")}
+                onClick={() => {token?navigate("/admin/dashboard"):navigate("/admin/login")}}
                 className="cursor-pointer text-gray-300 hover:text-royal-gold transition-colors duration-300 text-sm font-medium uppercase tracking-widest"
               >
-                Login
+                {token?"Admin":"Login"}
               </div>
             </div>
           </div>
@@ -137,11 +139,11 @@ const Navbar = () => {
               <div
                 onClick={() => {
                   setIsOpen(false);
-                  navigate("/admin/login");
+                  token?navigate("admin/dashboard"):navigate("/admin/login");
                 }}
                 className="block px-3 py-4 rounded-md text-base font-medium text-gray-300 hover:text-royal-gold hover:bg-black/20"
               >
-                Login
+                {token?"Admin":"Login"}
               </div>
             </div>
           </motion.div>
