@@ -1,6 +1,7 @@
 from pathlib import Path
 from datetime import timedelta
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "replace-this-with-a-secure-one"
@@ -8,6 +9,7 @@ SECRET_KEY = "replace-this-with-a-secure-one"
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -26,6 +28,7 @@ INSTALLED_APPS = [
     "core",
 ]
 
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -40,6 +43,7 @@ MIDDLEWARE = [
 
 
 ROOT_URLCONF = "royalgym.urls"
+
 
 TEMPLATES = [
     {
@@ -57,7 +61,9 @@ TEMPLATES = [
     }
 ]
 
+
 WSGI_APPLICATION = "royalgym.wsgi.application"
+
 
 DATABASES = {
     "default": {
@@ -66,25 +72,31 @@ DATABASES = {
     }
 }
 
-AUTH_PASSWORD_VALIDATORS = []
 
+AUTH_PASSWORD_VALIDATORS = []
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
+
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+
 STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
     },
 }
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 
 # --- CLOUDINARY SETTINGS ---
 # Hardcoded as requested. Replace these with your real values.
@@ -93,10 +105,6 @@ CLOUDINARY_STORAGE = {
     'API_KEY': '937589669748582',
     'API_SECRET': 'Odou_km1tZSFpSAlvMHdtFvCyZg'
 }
-
-# This tells Django to use Cloudinary for Media files
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
 
 # --- REST FRAMEWORK SETTINGS ---
 REST_FRAMEWORK = {
@@ -108,6 +116,7 @@ REST_FRAMEWORK = {
     ),
 }
 
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=15),
@@ -117,10 +126,11 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
     
     "AUTH_COOKIE": "refresh_token",  # Name of the cookie
-    "AUTH_COOKIE_HTTP_ONLY": True,   # Prevents JS access (Crucial for security)
+    "AUTH_COOKIE_HTTP_ONLY": True,   # Prevents JS access (Crucial for >
     "AUTH_COOKIE_SECURE": False,     # Set to True in Production (HTTPS)
     "AUTH_COOKIE_SAMESITE": "Lax",
 }
+
 
 # --- CORS SETTINGS ---
 CORS_ALLOW_CREDENTIALS = True
