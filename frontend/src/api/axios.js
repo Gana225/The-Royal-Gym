@@ -65,7 +65,7 @@ const scheduleRefresh = (accessToken) => {
 
         console.log("Token auto-refreshed (scheduled).");
       } catch (err) {
-        console.error("Scheduled auto-refresh failed.");
+        console.error("Scheduled auto-refresh failed.",err);
         clearTokens();
       }
     }, delay);
@@ -103,7 +103,7 @@ window.addEventListener("focus", async () => {
 
       console.log("Token refreshed on tab focus.");
     } catch (err) {
-      console.error("Focus refresh failed.");
+      console.error("Focus refresh failed.", err);
       clearTokens();
     }
   }

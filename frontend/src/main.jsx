@@ -12,7 +12,7 @@ createRoot(document.getElementById("root")).render(
       <Router future={{
           v7_startTransition: true,
           v7_relativeSplatPath: true,
-        }} basename="/The-Royal-Gym">
+        }}>
         <div className="bg-royal-900 text-white min-h-screen font-body selection:bg-royal-gold selection:text-black">
           <App />
         </div>
