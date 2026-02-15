@@ -65,44 +65,44 @@ const Gallery = ({ images = [] }) => {
         </div>
 
         {/* --- GRID LAYOUT --- */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6">
-          {visibleImages.map((item, index) => (
-            <div
-              key={item.id || index}
-              className="group bg-[#121214] border border-white/5 rounded-2xl overflow-hidden cursor-pointer hover:border-amber-500/40 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-500 flex flex-col"
-              onClick={() => openImageModal(index)}
-            >
-              {/* Image Container */}
-              <div className="relative h-48 sm:h-56 overflow-hidden bg-black">
-                <img
-                  src={item.image}
-                  alt={item.title || `Gallery ${index}`}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 ease-out"
-                />
-                
-                {/* Overlay UI */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-                    <div className="p-3 bg-white/10 rounded-full backdrop-blur-md border border-white/20 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <Maximize2 size={22} className="text-amber-400" />
-                    </div>
-                </div>
-              </div>
+        {/*<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6">*/}
+        {/*  {visibleImages.map((item, index) => (*/}
+        {/*    <div*/}
+        {/*      key={item.id || index}*/}
+        {/*      className="group bg-[#121214] border border-white/5 rounded-2xl overflow-hidden cursor-pointer hover:border-amber-500/40 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-500 flex flex-col"*/}
+        {/*      onClick={() => openImageModal(index)}*/}
+        {/*    >*/}
+        {/*      /!* Image Container *!/*/}
+        {/*      <div className="relative h-48 sm:h-56 overflow-hidden bg-black">*/}
+        {/*        <img*/}
+        {/*          src={item.image}*/}
+        {/*          alt={item.title || `Gallery ${index}`}*/}
+        {/*          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 ease-out"*/}
+        {/*        />*/}
+        {/*        */}
+        {/*        /!* Overlay UI *!/*/}
+        {/*        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">*/}
+        {/*            <div className="p-3 bg-white/10 rounded-full backdrop-blur-md border border-white/20 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">*/}
+        {/*                <Maximize2 size={22} className="text-amber-400" />*/}
+        {/*            </div>*/}
+        {/*        </div>*/}
+        {/*      </div>*/}
 
-              {/* Text Content */}
-              <div className="p-5 flex flex-col flex-grow">
-                {item.title ? (
-                    <h3 className="text-white font-bold text-sm md:text-base truncate group-hover:text-amber-500 transition-colors">
-                      {item.title}
-                    </h3>
-                ) : (
-                    <h3 className="text-gray-600 font-medium text-sm italic">Gallery Image</h3>
-                )}
-                
-                {renderDescription(item.description, item)}
-              </div>
-            </div>
-          ))}
-        </div>
+        {/*      /!* Text Content *!/*/}
+        {/*      <div className="p-5 flex flex-col flex-grow">*/}
+        {/*        {item.title ? (*/}
+        {/*            <h3 className="text-white font-bold text-sm md:text-base truncate group-hover:text-amber-500 transition-colors">*/}
+        {/*              {item.title}*/}
+        {/*            </h3>*/}
+        {/*        ) : (*/}
+        {/*            <h3 className="text-gray-600 font-medium text-sm italic">Gallery Image</h3>*/}
+        {/*        )}*/}
+        {/*        */}
+        {/*        {renderDescription(item.description, item)}*/}
+        {/*      </div>*/}
+        {/*    </div>*/}
+        {/*  ))}*/}
+        {/*</div>*/}
 
         {/* Show More Button */}
         {images.length > INITIAL_COUNT && (
