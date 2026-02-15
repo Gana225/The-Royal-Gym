@@ -138,14 +138,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Your React Dev URL
     "http://127.0.0.1:3000",
     "http://129.159.21.34",
-    "https://gana225.github.io/",
+    "https://gana225.github.io",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:5174",
     "http://129.159.21.34",
-    "https://gana225.github.io/"
+    "https://gana225.github.io"
 ]
 
 CSRF_COOKIE_SAMESITE = 'None'  

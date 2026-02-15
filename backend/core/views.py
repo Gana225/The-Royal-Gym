@@ -1,3 +1,5 @@
+from http.client import HTTPResponse
+from django.http import HttpResponse
 from rest_framework import viewsets, permissions, generics
 from .models import SiteInfo, Testimonial, GymGallery
 from .serializers import SiteInfoSerializer, TestimonialSerializer, GymGallerySerializer
@@ -134,3 +136,8 @@ class LogoutView(APIView):
             return Response({"detail": "Successfully logged out."}, status=200)
         except Exception:
             return Response({"detail": "Invalid token."}, status=400)
+        
+        
+        
+def home(request):
+    return HttpResponse("HI HELLO")
