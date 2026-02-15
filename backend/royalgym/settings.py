@@ -146,7 +146,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://129.159.21.34",
 ]
 
-CSRF_COOKIE_SAMESITE = 'Lax'  # Allows the cookie to be sent on cross-site requests
-SESSION_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_HTTP_ONLY = False # Must be False so React can read it if needed
+CSRF_COOKIE_SAMESITE = 'None'  
+SESSION_COOKIE_SAMESITE = 'None'
 
+CSRF_COOKIE_HTTP_ONLY = False
