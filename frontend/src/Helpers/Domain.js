@@ -1,6 +1,6 @@
 const server_domain =
     window.location.hostname === "localhost"
         ? "http://localhost:8000/"
-        : "http://129.159.21.34/admin/";
+        : "https://gana.work.gd/";
 
 export { server_domain };
