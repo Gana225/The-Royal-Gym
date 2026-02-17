@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <title>Redirecting...</title>
     <script type="text/javascript">
-        // This script takes the current URL and redirects it to index.html
-        // with the path as a query string, so React Router can read it.
-        var pathSegmentsToKeep = 0;
+        // Change this to 1 because your app is at /The-Royal-Gym/
+        var pathSegmentsToKeep = 1;
+
         var l = window.location;
         l.replace(
             l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
