@@ -20,6 +20,7 @@ import {
   Star, // Added Star icon for recommended visual
   CheckCircle // Added CheckCircle for the UI
 } from 'lucide-react';
+import {server_domain} from "../Helpers/Domain.js";
 
 const EditSiteInfo = () => {
   const [loading, setLoading] = useState(true);
@@ -55,7 +56,7 @@ const EditSiteInfo = () => {
       try {
         const token = localStorage.getItem("authToken");
         
-        const response = await axios.get('http://localhost:8000/api/edit/', {
+        const response = await axios.get(`${server_domain}api/edit/`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = response.data;
@@ -212,7 +213,7 @@ const EditSiteInfo = () => {
 
     try {
       const token = localStorage.getItem("authToken");
-      await axios.put('http://localhost:8000/api/edit/', dataToSend, {
+      await axios.put(`${server_domain}api/edit/`, dataToSend, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       alert('Site settings updated successfully!');
