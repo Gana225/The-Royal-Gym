@@ -49,7 +49,7 @@ const AdminDashboard = () => {
     { 
       title: "Post Live Update", 
       icon: Radio, 
-      path: "/admin/live-updates", 
+      path: "/admin/live-update-manager",
       color: "text-rose-400", 
       gradient: "from-rose-500/20 to-rose-600/5",
       border: "group-hover:border-rose-500/50",
@@ -67,7 +67,7 @@ const AdminDashboard = () => {
     { 
       title: "Event Manager", 
       icon: Calendar, 
-      path: "/admin/events", 
+      path: "/admin/event-manager",
       color: "text-emerald-400", 
       gradient: "from-emerald-500/20 to-emerald-600/5",
       border: "group-hover:border-emerald-500/50",
@@ -77,8 +77,6 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-emerald-500/30">
-      <EventManager />
-        <LiveUpdateManager />
       {/* --- Top Navigation Bar --- */}
       <nav className="border-b border-slate-800 bg-slate-950/50 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">

@@ -121,7 +121,7 @@ const LiveUpdatesFeed = () => {
                         /* Smooth Scroll Container */
                         <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 scroll-smooth styled-scrollbar">
 
-                            {updates.map((update, index) => {
+                            {updates.map((update) => {
                                 const isExpanded = expandedDesc[update.id];
                                 const hasLongText = update.description && update.description.length > 180;
 
@@ -210,7 +210,7 @@ const LiveUpdatesFeed = () => {
             </div>
 
             {/* Custom Styles for Scrollbar and Animations */}
-            <style jsx>{`
+            <style>{`
                 .styled-scrollbar::-webkit-scrollbar {
                     width: 6px;
                 }

@@ -31,7 +31,7 @@ class TestimonialViewSet(viewsets.ModelViewSet):
         return [permissions.IsAdminUser()]
 
 @api_view(['GET', 'PUT'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def edit_site_info(request):
     info = SiteInfo.objects.first() 
     

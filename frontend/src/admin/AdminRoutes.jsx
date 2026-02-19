@@ -7,6 +7,8 @@ import { loadAccessToken } from "../api/auth";
 import { setAuthToken } from "../api/axios";
 import AdminGalleryManagement from "../admin/AdminGalleryManager";
 import EditSiteInfo from "./EditSiteInfo"
+import EventManager from "./EventManager.jsx";
+import LiveUpdateManager from "./AdminLiveUpdates.jsx";
 
 const RequireAuth = ({ children }) => {
   const token = loadAccessToken();
@@ -25,6 +27,8 @@ export default function AdminRoutes() {
       <Route path="/dashboard" element={<RequireAuth><AdminDashboard/></RequireAuth>} />
       <Route path="/edit" element={<RequireAuth><EditSiteInfo/></RequireAuth>}/>
       <Route path="/gallery-management" element={<RequireAuth><AdminGalleryManagement/></RequireAuth>}/>
+      <Route path="/event-manager" element={<RequireAuth><EventManager /></RequireAuth>}/>
+      <Route path="/live-update-manager" element={<RequireAuth><LiveUpdateManager/></RequireAuth>}/>
     </Routes>
     </>
   );
