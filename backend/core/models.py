@@ -1,5 +1,6 @@
 from django.db import models
 from cloudinary_storage.storage import MediaCloudinaryStorage, RawMediaCloudinaryStorage
+from cloudinary.models import CloudinaryField
 
 class SiteInfo(models.Model):
     main_bg_image = models.ImageField(upload_to="site_info_media/", storage=MediaCloudinaryStorage())
@@ -22,7 +23,7 @@ class Testimonial(models.Model):
 
 class GymGallery(models.Model):
     # Standard images
-    image = models.ImageField(upload_to="gym_gallery/", null=True, blank=True, storage=MediaCloudinaryStorage())
+    image = CloudinaryField(folder="gym_gallery/", resource_type="auto", use_filename=True, unique_filename=True, null=True, blank=True)
     title = models.CharField(max_length=250, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
 
@@ -36,34 +37,55 @@ class GymGallery(models.Model):
 
 class LiveUpdates(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
+    # auto_now updates the field every time the model is saved
+    last_modified = models.DateTimeField(auto_now=True) 
     subject = models.CharField(max_length=300)
     description = models.TextField()
 
     def __str__(self):
         return self.subject
 
-class LiveUpdateFiles(models.Model):
-    live_update = models.ForeignKey(LiveUpdates, related_name="files", on_delete=models.CASCADE)
-    # RAW storage for documents (PDF, DOCX, etc)
-    file = models.FileField(upload_to="live_update_files/", storage=RawMediaCloudinaryStorage())
+    class Meta:
+        ordering = ['-last_modified']
 
+class LiveUpdateFiles(models.Model):
+    live_update = models.ForeignKey(LiveUpdates, related_name="liveupdates_files", on_delete=models.CASCADE)
+    file = CloudinaryField(
+        resource_type="auto",
+        folder="live_update_files", 
+        use_filename=True,     
+        unique_filename=True   
+    )
     def __str__(self):
         return f"File for {self.live_update.subject}"
 
 class Events(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=250)
-    highlights = models.TextField()
+    
+   
+    highlights = models.TextField() 
+    
     description = models.TextField()
-    location = models.CharField(max_length=500)
+    location = models.CharField(max_length=500, null=True)
 
     def __str__(self):
         return self.title
+    
+    
 
 class EventFiles(models.Model):
-    event = models.ForeignKey(Events, related_name="files", on_delete=models.CASCADE)
-    # Images for events
-    file = models.ImageField(upload_to="event_photos/", null=True, blank=True, storage=MediaCloudinaryStorage())
+    event = models.ForeignKey(Events, related_name="events_files", on_delete=models.CASCADE)
+    
+    
+    file = CloudinaryField(
+        resource_type="image",
+        folder="event_photos",
+        use_filename=True,      
+        unique_filename=True,  
+        null=True, 
+        blank=True
+    )
 
     def __str__(self):
         return f"File for {self.event.title}"

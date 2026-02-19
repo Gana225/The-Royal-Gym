@@ -1,16 +1,20 @@
-from http.client import HTTPResponse
 from django.http import HttpResponse
 from rest_framework import viewsets, permissions, generics
-from .models import SiteInfo, Testimonial, GymGallery
-from .serializers import SiteInfoSerializer, TestimonialSerializer, GymGallerySerializer
+from .models import (SiteInfo, Testimonial, GymGallery, 
+                     LiveUpdates, LiveUpdateFiles, Events)
+from .serializers import (SiteInfoSerializer, TestimonialSerializer, GymGallerySerializer, 
+                          LiveUpdatesSerializer, EventsSerializer)
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 import cloudinary.utils
 from rest_framework.views import APIView
 from django.conf import settings
 import time
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework import status
+from django.db import transaction
 
 
 class SiteInfoViewSet(viewsets.ModelViewSet):
@@ -119,11 +123,6 @@ class CloudinarySignatureView(APIView):
             'folder': 'gym_gallery'
         })
         
-        
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
 
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
@@ -141,3 +140,71 @@ class LogoutView(APIView):
         
 def home(request):
     return HttpResponse("HI HELLO")
+
+
+
+class LiveUpdatesViewSet(viewsets.ModelViewSet):
+    queryset = LiveUpdates.objects.all().prefetch_related('liveupdates_files')
+    serializer_class = LiveUpdatesSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        try:
+            with transaction.atomic():
+                self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        
+        with transaction.atomic():
+            self.perform_update(serializer)
+            # Logic for adding new files during update
+            uploaded_files = request.FILES.getlist('uploaded_files')
+            for file in uploaded_files:
+                LiveUpdateFiles.objects.create(live_update=instance, file=file)
+
+        return Response(serializer.data)
+    
+
+
+class EventsViewSet(viewsets.ModelViewSet):
+    # prefetch_related stops the N+1 query problem, making fetches lightning fast
+    queryset = Events.objects.all().prefetch_related('events_files').order_by('-timestamp')
+    serializer_class = EventsSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        # Atomic transaction prevents ghost records if an image fails to upload
+        try:
+            with transaction.atomic():
+                self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        
+        try:
+            with transaction.atomic():
+                self.perform_update(serializer)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)

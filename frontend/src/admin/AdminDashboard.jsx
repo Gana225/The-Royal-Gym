@@ -13,6 +13,9 @@ import {
   ChevronRight
 } from 'lucide-react';
 import {logout} from "../api/auth";
+import AdminLiveUpdates from "./AdminLiveUpdates.jsx";
+import LiveUpdateManager from "./AdminLiveUpdates.jsx";
+import EventManager from "./EventManager.jsx";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -74,7 +77,8 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-emerald-500/30">
-      
+      <EventManager />
+        <LiveUpdateManager />
       {/* --- Top Navigation Bar --- */}
       <nav className="border-b border-slate-800 bg-slate-950/50 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">

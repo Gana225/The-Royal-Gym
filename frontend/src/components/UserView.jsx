@@ -10,6 +10,8 @@ import { Loader2 } from 'lucide-react'; // Assuming you have lucide-react instal
 
 // Ensure this import path is correct for your project structure
 import { server_domain } from "../Helpers/Domain";
+import LiveUpdatesFeed from "./LiveUpdatesFeed.jsx";
+import EventsShowcase from "./EventsShowcase.jsx";
 
 const UserView = () => {
   const [galleryData, setGalleryData] = useState([]);
@@ -33,7 +35,9 @@ const UserView = () => {
   return (
     <>
       <Hero />
-      <DailyStatus />
+      {/*<DailyStatus />*/}
+      <EventsShowcase />
+      <LiveUpdatesFeed />
       <Features />
       <Pricing />
       

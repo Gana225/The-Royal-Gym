@@ -103,7 +103,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dqekir3au',
     'API_KEY': '937589669748582',
-    'API_SECRET': 'Odou_km1tZSFpSAlvMHdtFvCyZg'
+    'API_SECRET': 'Odou_km1tZSFpSAlvMHdtFvCyZg',
+    'RESOURCE_TYPES': ['image', 'raw', 'video'],
 }
 
 # --- REST FRAMEWORK SETTINGS ---
@@ -145,7 +146,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:5174",
     "http://129.159.21.34",
-    "https://gana225.github.io"
+    "https://gana225.github.io",
+    "http://127.0.0.1:8000",
 ]
 
 CSRF_COOKIE_SAMESITE = 'None'  
